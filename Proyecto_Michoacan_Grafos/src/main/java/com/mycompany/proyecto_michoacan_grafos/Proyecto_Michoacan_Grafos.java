@@ -4,6 +4,8 @@
 
 package com.mycompany.proyecto_michoacan_grafos;
 
+import presentacion.JFrame_PantallaInicio;
+
 /**
  *
  * @author abrilislas
@@ -11,6 +13,7 @@ package com.mycompany.proyecto_michoacan_grafos;
 public class Proyecto_Michoacan_Grafos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        JFrame_PantallaInicio pantallaPrincipal = new JFrame_PantallaInicio();
+        pantallaPrincipal.setVisible(true);
     }
 }
