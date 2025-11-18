@@ -214,7 +214,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_AEMActionPerformed
 
     private void BotonMenu_VisualizarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_VisualizarGrafoActionPerformed
-        // TODO add your handling code here:
+        new JFrame_VisualizarGrafo().setVisible(true);
     }//GEN-LAST:event_BotonMenu_VisualizarGrafoActionPerformed
 
     private void BotonMenu_RutaCortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_RutaCortaActionPerformed
@@ -226,33 +226,12 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_ComplejidadTempActionPerformed
 
     private void BotonMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_SalirActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_BotonMenu_SalirActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JFrame_MenuPrincipal().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonMenu_AEM;

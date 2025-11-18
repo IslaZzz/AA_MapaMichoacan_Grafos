@@ -55,4 +55,8 @@ public class Vertice {
         return nombre.hashCode();
     }
 
+    public Coordinate getCoordenada() {
+        return coordenada;
+    }
+
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.proyecto_michoacan_grafos;
+package Algoritmos.main;
 
 import presentacion.JFrame_PantallaInicio;
 
