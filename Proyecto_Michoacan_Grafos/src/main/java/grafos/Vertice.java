@@ -14,13 +14,21 @@ public class Vertice {
 
     private final String nombre;
     private final Coordinate coordenada;
+    private String color;
 
-    public Vertice(String nombre, Coordinate coordenada
-    ) {
+    public Vertice(String nombre, Coordinate coordenada) {
         this.nombre = nombre;
         this.coordenada = coordenada;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
     public String getNombre() {
         return nombre;
     }
