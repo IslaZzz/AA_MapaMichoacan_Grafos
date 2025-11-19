@@ -13,8 +13,8 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
  *
  * @author abrilislas
  */
-public class GrafoMorelia{
-    
+public class GrafoMorelia {
+
     public static Grafo construirGrafo() {
         Grafo grafo = new Grafo();
         Map<String, Vertice> nodos = new HashMap<>();
@@ -48,7 +48,7 @@ public class GrafoMorelia{
                 Map.entry("Tepalcatepec", new Coordinate(19.1892, -102.8461)),
                 Map.entry("Zinapécuaro de Figueroa", new Coordinate(19.8667, -100.8333)),
                 Map.entry("Cherán", new Coordinate(19.6450, -101.8750)),
-                Map.entry("Santa Clara del Cobre", new Coordinate(19.4083, -101.6458)), 
+                Map.entry("Santa Clara del Cobre", new Coordinate(19.4083, -101.6458)),
                 Map.entry("Nuevo San Juan Parangaricutiro", new Coordinate(19.4167, -102.1294))
         );
 
@@ -62,20 +62,20 @@ public class GrafoMorelia{
 
         return grafo;
     }
-    
+
     private static void agregarConexiones(Grafo grafo, Map<String, Vertice> nodos) {
         grafo.agregarArista(nodos.get("Heroica Zitácuaro"), nodos.get("Ciudad Hidalgo"), 60);
         grafo.agregarArista(nodos.get("Ciudad Hidalgo"), nodos.get("Heroica Zitácuaro"), 60);
 
         grafo.agregarArista(nodos.get("Ciudad Hidalgo"), nodos.get("Morelia"), 95);
         grafo.agregarArista(nodos.get("Morelia"), nodos.get("Ciudad Hidalgo"), 95);
-        
+
         grafo.agregarArista(nodos.get("Morelia"), nodos.get("Zacapu"), 80);
         grafo.agregarArista(nodos.get("Zacapu"), nodos.get("Morelia"), 80);
-        
+
         grafo.agregarArista(nodos.get("Zacapu"), nodos.get("Zamora de Hidalgo"), 75);
         grafo.agregarArista(nodos.get("Zamora de Hidalgo"), nodos.get("Zacapu"), 75);
-        
+
         grafo.agregarArista(nodos.get("La Piedad"), nodos.get("Puruándiro"), 70);
         grafo.agregarArista(nodos.get("Puruándiro"), nodos.get("La Piedad"), 70);
 
@@ -93,22 +93,22 @@ public class GrafoMorelia{
 
         grafo.agregarArista(nodos.get("Morelia"), nodos.get("Pátzcuaro"), 58);
         grafo.agregarArista(nodos.get("Pátzcuaro"), nodos.get("Morelia"), 58);
-        
+
         grafo.agregarArista(nodos.get("Morelia"), nodos.get("Zinapécuaro de Figueroa"), 55);
         grafo.agregarArista(nodos.get("Zinapécuaro de Figueroa"), nodos.get("Morelia"), 55);
-        
+
         grafo.agregarArista(nodos.get("Morelia"), nodos.get("Tacámbaro de Codallos"), 105);
         grafo.agregarArista(nodos.get("Tacámbaro de Codallos"), nodos.get("Morelia"), 105);
 
         grafo.agregarArista(nodos.get("Pátzcuaro"), nodos.get("Santa Clara del Cobre"), 18);
         grafo.agregarArista(nodos.get("Santa Clara del Cobre"), nodos.get("Pátzcuaro"), 18);
-        
+
         grafo.agregarArista(nodos.get("Pátzcuaro"), nodos.get("Uruapan"), 55); // Ruta vieja
         grafo.agregarArista(nodos.get("Uruapan"), nodos.get("Pátzcuaro"), 55);
 
         grafo.agregarArista(nodos.get("Zamora de Hidalgo"), nodos.get("Jacona de Plancarte"), 5);
         grafo.agregarArista(nodos.get("Jacona de Plancarte"), nodos.get("Zamora de Hidalgo"), 5);
-        
+
         grafo.agregarArista(nodos.get("Zamora de Hidalgo"), nodos.get("Sahuayo de Morelos"), 60);
         grafo.agregarArista(nodos.get("Sahuayo de Morelos"), nodos.get("Zamora de Hidalgo"), 60);
 
@@ -117,21 +117,51 @@ public class GrafoMorelia{
 
         grafo.agregarArista(nodos.get("Zamora de Hidalgo"), nodos.get("La Piedad"), 75);
         grafo.agregarArista(nodos.get("La Piedad"), nodos.get("Zamora de Hidalgo"), 75);
-        
+
         grafo.agregarArista(nodos.get("La Piedad"), nodos.get("Yurécuaro"), 30);
         grafo.agregarArista(nodos.get("Yurécuaro"), nodos.get("La Piedad"), 30);
 
         grafo.agregarArista(nodos.get("Apatzingán"), nodos.get("Nueva Italia de Ruiz"), 25);
         grafo.agregarArista(nodos.get("Nueva Italia de Ruiz"), nodos.get("Apatzingán"), 25);
-        
+
         grafo.agregarArista(nodos.get("Apatzingán"), nodos.get("Tepalcatepec"), 85);
         grafo.agregarArista(nodos.get("Tepalcatepec"), nodos.get("Apatzingán"), 85);
-        
+
         grafo.agregarArista(nodos.get("Ciudad Lázaro Cárdenas"), nodos.get("Las Guacamayas"), 8);
         grafo.agregarArista(nodos.get("Las Guacamayas"), nodos.get("Ciudad Lázaro Cárdenas"), 8);
 
         grafo.agregarArista(nodos.get("Las Guacamayas"), nodos.get("La Orilla"), 3);
         grafo.agregarArista(nodos.get("La Orilla"), nodos.get("Las Guacamayas"), 3);
+
+        grafo.agregarArista(nodos.get("Zinapécuaro de Figueroa"), nodos.get("Maravatío de Ocampo"), 45);
+        grafo.agregarArista(nodos.get("Maravatío de Ocampo"), nodos.get("Zinapécuaro de Figueroa"), 45);
+
+        grafo.agregarArista(nodos.get("Tacámbaro de Codallos"), nodos.get("Huetamo de Núñez"), 95);
+        grafo.agregarArista(nodos.get("Huetamo de Núñez"), nodos.get("Tacámbaro de Codallos"), 95);
+
+        grafo.agregarArista(nodos.get("Uruapan"), nodos.get("Paracho de Verduzco"), 38);
+        grafo.agregarArista(nodos.get("Paracho de Verduzco"), nodos.get("Uruapan"), 38);
+
+        grafo.agregarArista(nodos.get("Paracho de Verduzco"), nodos.get("Cherán"), 12);
+        grafo.agregarArista(nodos.get("Cherán"), nodos.get("Paracho de Verduzco"), 12);
+
+        grafo.agregarArista(nodos.get("Cherán"), nodos.get("Zamora de Hidalgo"), 45);
+        grafo.agregarArista(nodos.get("Zamora de Hidalgo"), nodos.get("Cherán"), 45);
+
+        grafo.agregarArista(nodos.get("Jacona de Plancarte"), nodos.get("Los Reyes de Salgado"), 55);
+        grafo.agregarArista(nodos.get("Los Reyes de Salgado"), nodos.get("Jacona de Plancarte"), 55);
+
+        grafo.agregarArista(nodos.get("Los Reyes de Salgado"), nodos.get("Peribán de Ramos"), 10);
+        grafo.agregarArista(nodos.get("Peribán de Ramos"), nodos.get("Los Reyes de Salgado"), 10);
+
+        grafo.agregarArista(nodos.get("Peribán de Ramos"), nodos.get("Uruapan"), 58);
+        grafo.agregarArista(nodos.get("Uruapan"), nodos.get("Peribán de Ramos"), 58);
+
+        grafo.agregarArista(nodos.get("Santa Clara del Cobre"), nodos.get("Ario de Rosales"), 25);
+        grafo.agregarArista(nodos.get("Ario de Rosales"), nodos.get("Santa Clara del Cobre"), 25);
+
+        grafo.agregarArista(nodos.get("Uruapan"), nodos.get("Nuevo San Juan Parangaricutiro"), 15);
+        grafo.agregarArista(nodos.get("Nuevo San Juan Parangaricutiro"), nodos.get("Uruapan"), 15);
     }
 
 }
