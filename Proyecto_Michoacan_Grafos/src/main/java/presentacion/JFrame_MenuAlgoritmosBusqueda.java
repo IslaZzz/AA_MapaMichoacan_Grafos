@@ -27,9 +27,9 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBotones = new javax.swing.JPanel();
-        BotonMenu_Recorridos = new javax.swing.JButton();
+        BotonMenu_DFS = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        BotonMenu_VisualizarGrafo = new javax.swing.JButton();
+        BotonMenu_BFS = new javax.swing.JButton();
         BotonMenu_Salir = new javax.swing.JButton();
         headerMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -40,14 +40,14 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
         panelBotones.setBackground(new java.awt.Color(248, 242, 232));
         panelBotones.setPreferredSize(new java.awt.Dimension(978, 560));
 
-        BotonMenu_Recorridos.setBackground(new java.awt.Color(240, 228, 208));
-        BotonMenu_Recorridos.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
-        BotonMenu_Recorridos.setForeground(new java.awt.Color(51, 51, 0));
-        BotonMenu_Recorridos.setBorderPainted(false);
-        BotonMenu_Recorridos.setLabel("BUSQUEDA EN PROFUNDIDAD");
-        BotonMenu_Recorridos.addActionListener(new java.awt.event.ActionListener() {
+        BotonMenu_DFS.setBackground(new java.awt.Color(240, 228, 208));
+        BotonMenu_DFS.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
+        BotonMenu_DFS.setForeground(new java.awt.Color(51, 51, 0));
+        BotonMenu_DFS.setBorderPainted(false);
+        BotonMenu_DFS.setLabel("BUSQUEDA EN PROFUNDIDAD");
+        BotonMenu_DFS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonMenu_RecorridosActionPerformed(evt);
+                BotonMenu_DFSActionPerformed(evt);
             }
         });
 
@@ -55,14 +55,14 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 51, 51));
         jLabel2.setText("ELIJA EL ALGORITMO");
 
-        BotonMenu_VisualizarGrafo.setBackground(new java.awt.Color(240, 228, 208));
-        BotonMenu_VisualizarGrafo.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
-        BotonMenu_VisualizarGrafo.setForeground(new java.awt.Color(51, 51, 0));
-        BotonMenu_VisualizarGrafo.setText("BUSQUEDA EN ANCHURA");
-        BotonMenu_VisualizarGrafo.setBorderPainted(false);
-        BotonMenu_VisualizarGrafo.addActionListener(new java.awt.event.ActionListener() {
+        BotonMenu_BFS.setBackground(new java.awt.Color(240, 228, 208));
+        BotonMenu_BFS.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
+        BotonMenu_BFS.setForeground(new java.awt.Color(51, 51, 0));
+        BotonMenu_BFS.setText("BUSQUEDA EN ANCHURA");
+        BotonMenu_BFS.setBorderPainted(false);
+        BotonMenu_BFS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonMenu_VisualizarGrafoActionPerformed(evt);
+                BotonMenu_BFSActionPerformed(evt);
             }
         });
 
@@ -110,17 +110,16 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
                 .addComponent(headerMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panelBotonesLayout.createSequentialGroup()
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BotonMenu_Recorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonMenu_DFS, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelBotonesLayout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(jLabel2))
-                        .addGroup(panelBotonesLayout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelBotonesLayout.createSequentialGroup()
                             .addGap(279, 279, 279)
-                            .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(BotonMenu_BFS, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBotonesLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBotonesLayout.setVerticalGroup(
@@ -129,20 +128,20 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
                 .addComponent(headerMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BotonMenu_Recorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(BotonMenu_BFS, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(BotonMenu_DFS, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1088, Short.MAX_VALUE)
+            .addGap(0, 978, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -162,14 +161,15 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonMenu_RecorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_RecorridosActionPerformed
+    private void BotonMenu_DFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_DFSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BotonMenu_RecorridosActionPerformed
-
-    private void BotonMenu_VisualizarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_VisualizarGrafoActionPerformed
-        new JFrame_VisualizarGrafo().setVisible(true);
+        new JFrame_DFS().setVisible(true);
         dispose();
-    }//GEN-LAST:event_BotonMenu_VisualizarGrafoActionPerformed
+    }//GEN-LAST:event_BotonMenu_DFSActionPerformed
+
+    private void BotonMenu_BFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_BFSActionPerformed
+
+    }//GEN-LAST:event_BotonMenu_BFSActionPerformed
 
     private void BotonMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_SalirActionPerformed
         new JFrame_MenuPrincipal().setVisible(true);
@@ -178,9 +178,9 @@ public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonMenu_Recorridos;
+    private javax.swing.JButton BotonMenu_BFS;
+    private javax.swing.JButton BotonMenu_DFS;
     private javax.swing.JButton BotonMenu_Salir;
-    private javax.swing.JButton BotonMenu_VisualizarGrafo;
     private javax.swing.JPanel headerMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

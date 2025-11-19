@@ -26,7 +26,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1088" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="978" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -69,19 +69,18 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="BotonMenu_Recorridos" min="-2" pref="531" max="-2" attributes="0"/>
+                      <Component id="BotonMenu_DFS" min="-2" pref="531" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="BotonMenu_Salir" min="-2" pref="285" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
-                              <Component id="BotonMenu_VisualizarGrafo" min="-2" pref="531" max="-2" attributes="0"/>
+                              <Component id="BotonMenu_BFS" min="-2" pref="531" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="BotonMenu_Salir" min="-2" pref="285" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -95,19 +94,19 @@
                   <Component id="headerMenu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="114" max="32767" attributes="0"/>
-                  <Component id="BotonMenu_VisualizarGrafo" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="BotonMenu_Recorridos" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace pref="76" max="32767" attributes="0"/>
+                  <Component id="BotonMenu_BFS" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="BotonMenu_DFS" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="BotonMenu_Salir" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="BotonMenu_Recorridos">
+        <Component class="javax.swing.JButton" name="BotonMenu_DFS">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d0" green="e4" red="f0" type="rgb"/>
@@ -122,7 +121,7 @@
             <Property name="label" type="java.lang.String" value="BUSQUEDA EN PROFUNDIDAD"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonMenu_RecorridosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonMenu_DFSActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -136,7 +135,7 @@
             <Property name="text" type="java.lang.String" value="ELIJA EL ALGORITMO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="BotonMenu_VisualizarGrafo">
+        <Component class="javax.swing.JButton" name="BotonMenu_BFS">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d0" green="e4" red="f0" type="rgb"/>
@@ -151,7 +150,7 @@
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonMenu_VisualizarGrafoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonMenu_BFSActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BotonMenu_Salir">
