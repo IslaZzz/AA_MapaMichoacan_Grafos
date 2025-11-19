@@ -4,6 +4,8 @@
  */
 package presentacion;
 
+import Algoritmos.AlgoritmosBusqueda;
+import Algoritmos.Observador;
 import grafos.Arista;
 import grafos.Grafo;
 import grafos.GrafoMorelia;
@@ -31,17 +33,19 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
  *
  * @author Ramon Valencia
  */
-public class JFrame_DFS extends javax.swing.JFrame {
+public class JFrame_DFS extends JFrame_Padre implements Observador{
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
     private final JComboBox<Vertice> cbOrigen;
     private final JButton btnContinuar;
+    private final AlgoritmosBusqueda aB;
 
     public JFrame_DFS() {
         super();
         setTitle("Seleccionar Origen - Grafo Michoacán");
         setLayout(new BorderLayout());
+        aB = new AlgoritmosBusqueda();
 
         // 1. Inicializar Grafo y Mapa
         this.grafo = GrafoMorelia.construirGrafo();
@@ -108,7 +112,7 @@ public class JFrame_DFS extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + origen.getNombre() + 
                     "\nListo para iniciar algoritmo.");
-            
+            aB.DFSVisit(grafo, origen);
             // Ejemplo:
             // JFrame_VisualizarRecorrido recorrido = new JFrame_VisualizarRecorrido(origen);
             // recorrido.setVisible(true);
@@ -133,7 +137,7 @@ public class JFrame_DFS extends javax.swing.JFrame {
         // O simplemente iteramos todo si no importa la sobreimpresión
         for (Vertice v : grafo.getVertices()) {
             // Marcador (Punto rojo por defecto)
-            markers.add(new MapMarkerDot(Color.RED, v.getCoordenada().getLat(), v.getCoordenada().getLon()));
+            markers.add(new MapMarkerDot(v.getColor(), v.getCoordenada().getLat(), v.getCoordenada().getLon()));
             
             // Aristas
             for (Arista a : grafo.getVecinos(v)) {
@@ -201,6 +205,11 @@ public class JFrame_DFS extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void actualizar() {
+        dibujarGrafoBase();
+    }
 
 
 

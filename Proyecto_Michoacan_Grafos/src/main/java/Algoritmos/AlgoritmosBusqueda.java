@@ -24,9 +24,11 @@ import java.util.Set;
  */
 public class AlgoritmosBusqueda {
     
+    private Observador observador;
     private int tiempo = 0;
     
     public void DFS (Grafo grafo) {
+        
         for (Vertice u : grafo.getVertices()) {
             if (u.getColor() == Color.WHITE) { 
                 
@@ -62,6 +64,8 @@ public class AlgoritmosBusqueda {
         } catch (InterruptedException ex) {
             System.out.println("EASTER EGG");
         }
+        
+        observador.actualizar();
     }
 
     public Map<String, Object> dijkstra(Grafo grafo, Vertice fuente) {
@@ -128,5 +132,9 @@ public class AlgoritmosBusqueda {
         }
 
         return ruta;
+    }
+    
+    public void subscribirObservador(Observador o) {
+        this.observador = o;
     }
 }

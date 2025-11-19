@@ -8,7 +8,7 @@ package presentacion;
  *
  * @author Ramon Valencia
  */
-public class JFrame_MenuAlgoritmosBusqueda extends javax.swing.JFrame {
+public class JFrame_MenuAlgoritmosBusqueda extends JFrame_Padre {
 
     /**
      * Creates new form JFrame_MenuAlgoritmosBusqueda
