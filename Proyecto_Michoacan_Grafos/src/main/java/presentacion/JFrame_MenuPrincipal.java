@@ -212,7 +212,8 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_RecorridosActionPerformed
 
     private void BotonMenu_AEMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_AEMActionPerformed
-        // TODO add your handling code here:
+        new JFrame_MST().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonMenu_AEMActionPerformed
 
     private void BotonMenu_VisualizarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_VisualizarGrafoActionPerformed
