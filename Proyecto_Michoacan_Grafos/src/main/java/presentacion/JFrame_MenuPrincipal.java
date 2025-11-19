@@ -207,6 +207,8 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
 
     private void BotonMenu_RecorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_RecorridosActionPerformed
         // TODO add your handling code here:
+        new JFrame_MenuAlgoritmosBusqueda().setVisible(true);
+        dispose();
     }//GEN-LAST:event_BotonMenu_RecorridosActionPerformed
 
     private void BotonMenu_AEMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_AEMActionPerformed
