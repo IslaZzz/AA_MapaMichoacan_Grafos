@@ -10,6 +10,13 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>com.mycompany.proyecto_michoacan_grafos.Proyecto_Michoacan_Grafos</exec.mainClass>
     </properties>
+    <repositories>
+        <repository>
+            <id>josm-public</id>
+            <name>JOSM Public Repository</name>
+            <url>https://josm.openstreetmap.de/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
     
     <dependencies>
         <dependency>
