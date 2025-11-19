@@ -4,6 +4,7 @@
  */
 package grafos;
 
+import java.awt.Color;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 /**
@@ -14,19 +15,26 @@ public class Vertice {
 
     private final String nombre;
     private final Coordinate coordenada;
-    private String color;
+    private Color colorNodo;
+    private Vertice antecesor;
+    private int tiempo;
 
     public Vertice(String nombre, Coordinate coordenada) {
         this.nombre = nombre;
         this.coordenada = coordenada;
+        this.colorNodo = Color.WHITE;
     }
-
-    public String getColor() {
-        return color;
+    
+    public void nodoVisitado() {
+        this.colorNodo = Color.BLUE;
     }
-
-    public void setColor(String color) {
-        this.color = color;
+    
+    public void nodoCompleto() {
+        this.colorNodo = Color.GREEN;
+    }
+    
+    public Color getColor() {
+        return colorNodo;
     }
     
     public String getNombre() {
@@ -39,6 +47,22 @@ public class Vertice {
 
     public double getLongitud() {
         return coordenada.getLon();
+    }
+
+    public Vertice getAntecesor() {
+        return antecesor;
+    }
+    
+    public void setAntecesor(Vertice v) {
+        this.antecesor = v;
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
     }
 
     @Override

@@ -7,6 +7,7 @@ package Algoritmos;
 import grafos.Arista;
 import grafos.Grafo;
 import grafos.Vertice;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,38 +23,46 @@ import java.util.Set;
  * @author Abraham Coronel
  */
 public class AlgoritmosBusqueda {
-//    public void DFS (Grafo grafo) {
-//        for (Vertice u : grafo.getVertices()) {
-//            if (u.getColor() == Color.WHITE) { // Línea 6
-//                // Línea 7: DFS-VISIT(G, u)
-//                dfsVisit(grafo, u);
-//            }
-//        }
-//    }
-//    
-//    public void DFSVisit(Grafo grafo, Vertice origen) {
-//        this.time[0]++; // Línea 1: time = time + 1
-//        origen.setD(this.time[0]); // Línea 2: u.d = time
-//        origen.setColor(Color.GRAY); // Línea 3: u.color = GRAY
-//        
-//        System.out.println("Descubierto (d=" + u.getD() + "): " + u.getNombre());
-//
-//        // Línea 4: for each v ∈ G.Adj[u]
-//        List<Arista> adyacentes = grafo.getVecinos(origen);
-//        
-//        for (Arista arista : adyacentes) {
-//            Vertice v = arista.getDestino();
-//            
-//            if (v.getColor() == Color.WHITE) { // Línea 5
-//                v.setPadre(origen); // Línea 6: v.π = u
-//                DFSVisit(grafo, v); // Línea 7: DFS-VISIT(G, v)
-//            }
-//        }
-//
-//        origen.setColor(Color.BLACK); // Línea 8: u.color = BLACK
-//        this.time[0]++; // Línea 9: time = time + 1
-//        u.setF(this.time[0]); // Línea 10: u.f = time
-//    }
+    
+    private int tiempo = 0;
+    
+    public void DFS (Grafo grafo) {
+        for (Vertice u : grafo.getVertices()) {
+            if (u.getColor() == Color.WHITE) { 
+                
+                DFSVisit(grafo, u);
+            }
+        }
+    }
+    
+    public void DFSVisit(Grafo grafo, Vertice origen) {
+        this.tiempo++;
+        origen.setTiempo(tiempo); 
+        origen.nodoVisitado();
+        
+        System.out.println("Descubierto (d=" + origen.getTiempo() + "): " + origen.getNombre());
+
+        
+        List<Arista> adyacentes = grafo.getVecinos(origen);
+        
+        for (Arista arista : adyacentes) {
+            Vertice v = arista.getDestino();
+            
+            if (v.getColor() == Color.WHITE) { 
+                v.setAntecesor(origen); 
+                DFSVisit(grafo, v);
+            }
+        }
+
+        origen.nodoCompleto(); 
+        this.tiempo++; 
+        origen.setTiempo(this.tiempo); 
+        try {
+            Thread.sleep(500l);
+        } catch (InterruptedException ex) {
+            System.out.println("EASTER EGG");
+        }
+    }
 
     public Map<String, Object> dijkstra(Grafo grafo, Vertice fuente) {
         Map<Vertice, Double> distancias = new HashMap<>();

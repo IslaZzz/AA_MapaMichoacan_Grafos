@@ -215,10 +215,12 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
 
     private void BotonMenu_VisualizarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_VisualizarGrafoActionPerformed
         new JFrame_VisualizarGrafo().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonMenu_VisualizarGrafoActionPerformed
 
     private void BotonMenu_RutaCortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_RutaCortaActionPerformed
         new JFrame_RutaMasCorta().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonMenu_RutaCortaActionPerformed
 
     private void BotonMenu_ComplejidadTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_ComplejidadTempActionPerformed
