@@ -23,49 +23,51 @@ import java.util.Set;
  * @author Abraham Coronel
  */
 public class AlgoritmosBusqueda {
-    
+
     private Observador observador;
     private int tiempo = 0;
-    
-    public void DFS (Grafo grafo) {
-        
+
+    public void DFS(Grafo grafo) {
+
         for (Vertice u : grafo.getVertices()) {
-            if (u.getColor() == Color.WHITE) { 
-                
+            if (u.getColor() == Color.WHITE) {
+
                 DFSVisit(grafo, u);
             }
         }
     }
-    
+
     public void DFSVisit(Grafo grafo, Vertice origen) {
         this.tiempo++;
-        origen.setTiempo(tiempo); 
+        origen.setTiempo(tiempo);
         origen.nodoVisitado();
         observador.actualizar();
-        
+
         System.out.println("Descubierto (d=" + origen.getTiempo() + "): " + origen.getNombre());
 
-        
         List<Arista> adyacentes = grafo.getVecinos(origen);
-        
+
         for (Arista arista : adyacentes) {
             Vertice v = arista.getDestino();
-            
-            if (v.getColor() == Color.WHITE) { 
-                v.setAntecesor(origen); 
+
+            if (v.getColor() == Color.WHITE) {
+                v.setAntecesor(origen);
                 DFSVisit(grafo, v);
+                observador.actualizar();
             }
         }
 
-        origen.nodoCompleto(); 
-        this.tiempo++; 
+        origen.nodoCompleto();
+        this.tiempo++;
+        System.out.println("Completo (d=" + origen.getTiempo() + "/" + tiempo + "): " + origen.getNombre());
         origen.setTiempo(this.tiempo);
+
         try {
-            Thread.sleep(100l);
+            Thread.sleep(500l);
         } catch (InterruptedException ex) {
             System.out.println("EASTER EGG");
         }
-        observador.actualizar();
+
     }
 
     public Map<String, Object> dijkstra(Grafo grafo, Vertice fuente) {
@@ -133,7 +135,7 @@ public class AlgoritmosBusqueda {
 
         return ruta;
     }
-    
+
     public void subscribirObservador(Observador o) {
         this.observador = o;
     }

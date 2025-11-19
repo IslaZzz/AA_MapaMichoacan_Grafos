@@ -26,11 +26,11 @@ public class Vertice {
     }
     
     public void nodoVisitado() {
-        this.colorNodo = Color.BLUE;
+        this.colorNodo = Color.GRAY;
     }
     
     public void nodoCompleto() {
-        this.colorNodo = Color.GREEN;
+        this.colorNodo = Color.BLACK;
     }
     
     public Color getColor() {
