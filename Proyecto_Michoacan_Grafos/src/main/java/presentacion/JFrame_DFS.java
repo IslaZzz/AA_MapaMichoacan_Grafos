@@ -38,7 +38,7 @@ public class JFrame_DFS extends javax.swing.JFrame {
     private final JComboBox<Vertice> cbOrigen;
     private final JButton btnContinuar;
 
-    public JFrame_SeleccionarOrigen() {
+    public JFrame_DFS() {
         super();
         setTitle("Seleccionar Origen - Grafo Michoacán");
         setLayout(new BorderLayout());
