@@ -51,4 +51,21 @@ public class Grafo {
             }
         }
     }
+    
+    /**
+     * @return retorna una lista con todas las aristas del grafo
+     */
+    public List<AristaCompleta> getAristas() {
+    List<AristaCompleta> resultado = new ArrayList<>();
+
+    for (Vertice origen : adyacencias.keySet()) {
+        for (Arista a : adyacencias.get(origen)) {
+            Vertice destino = a.getDestino();
+            double peso = a.getPeso();
+            resultado.add(new AristaCompleta(origen, destino, peso));
+        }
+    }
+    return resultado;
+}
+
 }
