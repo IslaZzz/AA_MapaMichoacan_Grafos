@@ -60,6 +60,11 @@ public class AlgoritmosBusqueda {
         origen.nodoCompleto(); 
         this.tiempo++; 
         origen.setTiempo(this.tiempo);
+        try {
+            Thread.sleep(100l);
+        } catch (InterruptedException ex) {
+            System.out.println("EASTER EGG");
+        }
         observador.actualizar();
     }
 
