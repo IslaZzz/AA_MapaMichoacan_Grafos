@@ -16,12 +16,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
@@ -33,7 +36,7 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
  *
  * @author Ramon Valencia
  */
-public class JFrame_DFS extends JFrame_Padre implements Observador{
+public class JFrame_DFS extends JFrame_Padre implements Observador {
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
@@ -58,7 +61,7 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
         JPanel panelTop = new JPanel(new FlowLayout());
         cbOrigen = new JComboBox<>();
         btnContinuar = new JButton("CONFIRMAR ORIGEN");
-        
+
         // Estilo del botón
         btnContinuar.setBackground(new Color(0, 102, 204)); // Un azul para diferenciar
         btnContinuar.setForeground(Color.WHITE);
@@ -77,10 +80,9 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
         add(mapViewer, BorderLayout.CENTER);
 
         // Dibujar el grafo base inicial
-        dibujarGrafoBase();
+        dibujarGrafoEstadoActual();
 
         // 5. Eventos
-        
         // Evento: Al cambiar la selección del combo, resaltar en el mapa
         cbOrigen.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -92,7 +94,7 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
         btnContinuar.addActionListener(e -> confirmarSeleccion());
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         // Resaltar el primero por defecto al abrir
         if (cbOrigen.getItemCount() > 0) {
             resaltarVerticeSeleccionado((Vertice) cbOrigen.getItemAt(0));
@@ -100,23 +102,19 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
     }
 
     /**
-     * Acción al presionar el botón.
-     * Aquí es donde conectarías con la siguiente ventana (ej. BFS/DFS).
+     * Acción al presionar el botón. Aquí es donde conectarías con la siguiente
+     * ventana (ej. BFS/DFS).
      */
     private void confirmarSeleccion() {
         Vertice origen = (Vertice) cbOrigen.getSelectedItem();
-        
+
         if (origen != null) {
-            // AQUÍ VA TU LÓGICA SIGUIENTE. 
-            // Por ejemplo: abrir la ventana de recorrido BFS pasándole este vértice.
-            
-            JOptionPane.showMessageDialog(this, "Has seleccionado: " + origen.getNombre() + 
-                    "\nListo para iniciar algoritmo.");
-            aB.DFSVisit(grafo, origen);
-            // Ejemplo:
-            // JFrame_VisualizarRecorrido recorrido = new JFrame_VisualizarRecorrido(origen);
-            // recorrido.setVisible(true);
-            
+            JOptionPane.showMessageDialog(this, "Has seleccionado: " + origen.getNombre()
+                    + "\nListo para iniciar algoritmo.");
+            new Thread(() -> {
+                aB.DFSVisit(grafo, origen);
+            }).start();
+
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un origen válido.");
         }
@@ -125,52 +123,61 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
     /**
      * Dibuja todo el grafo en rojo (estado normal).
      */
-    private void dibujarGrafoBase() {
+    private void dibujarGrafoEstadoActual() {
         mapViewer.removeAllMapMarkers();
         mapViewer.removeAllMapPolygons();
 
         List<MapMarker> markers = new ArrayList<>();
         List<MapPolygon> lines = new ArrayList<>();
 
-        // Dibujar Aristas (Líneas)
-        // Usamos un set simple de strings para no dibujar lineas dobles si no es necesario
-        // O simplemente iteramos todo si no importa la sobreimpresión
         for (Vertice v : grafo.getVertices()) {
-            // Marcador (Punto rojo por defecto)
-            markers.add(new MapMarkerDot(v.getColor(), v.getCoordenada().getLat(), v.getCoordenada().getLon()));
-            
-            // Aristas
+
+            Color colorDinamico = v.getColor();
+
+            if (colorDinamico == null) {
+                colorDinamico = Color.RED; // Color por defecto si es null
+            }
+
+            // Usamos ese color para el marcador
+            MapMarkerDot marcador = new MapMarkerDot(colorDinamico, v.getCoordenada().getLat(), v.getCoordenada().getLon());
+            marcador.setBackColor(colorDinamico);
+
+            markers.add(marcador);
+
+            // Aristas (Las dejamos rojas o negras, según prefieras)
             for (Arista a : grafo.getVecinos(v)) {
                 Vertice u = a.getDestino();
                 MapPolygonImpl linea = new MapPolygonImpl(v.getCoordenada(), u.getCoordenada(), v.getCoordenada());
-                linea.setColor(Color.RED);
+                linea.setColor(Color.BLACK); // O el color que gustes para las líneas
                 lines.add(linea);
             }
         }
-        
+
         mapViewer.setMapMarkerList(markers);
         mapViewer.setMapPolygonList(lines);
     }
 
     /**
-     * Redibuja el grafo pero pinta el vértice seleccionado de AZUL (CYAN)
-     * para que el usuario sepa dónde está ubicado.
+     * Redibuja el grafo pero pinta el vértice seleccionado de AZUL (CYAN) para
+     * que el usuario sepa dónde está ubicado.
      */
     private void resaltarVerticeSeleccionado(Vertice seleccionado) {
-        if (seleccionado == null) return;
+        if (seleccionado == null) {
+            return;
+        }
 
         mapViewer.removeAllMapMarkers();
         // No borramos polígonos (líneas) para no procesar tanto, solo cambiamos los puntos.
-        
+
         List<MapMarker> markers = new ArrayList<>();
 
         for (Vertice v : grafo.getVertices()) {
             if (v.equals(seleccionado)) {
                 // El seleccionado es AZUL y más grande (si la librería lo permite, si no, solo color)
-                MapMarkerDot dot = new MapMarkerDot(Color.BLUE, v.getCoordenada().getLat(), v.getCoordenada().getLon());
-                dot.setBackColor(Color.CYAN);
+                MapMarkerDot dot = new MapMarkerDot(seleccionado.getColor(), v.getCoordenada().getLat(), v.getCoordenada().getLon());
+                dot.setBackColor(Color.RED);
                 markers.add(dot);
-                
+
                 // Opcional: Centrar mapa en el seleccionado
                 mapViewer.setDisplayPosition(v.getCoordenada(), mapViewer.getZoom());
             } else {
@@ -208,11 +215,12 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
 
     @Override
     public void actualizar() {
-        dibujarGrafoBase();
-        repaint();
-        revalidate();
-    }
+        SwingUtilities.invokeLater(() -> {
+            dibujarGrafoEstadoActual();
+            mapViewer.repaint();
+        });
 
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
