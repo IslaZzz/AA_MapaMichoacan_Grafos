@@ -209,6 +209,8 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
     @Override
     public void actualizar() {
         dibujarGrafoBase();
+        repaint();
+        revalidate();
     }
 
 

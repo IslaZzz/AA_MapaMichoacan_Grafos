@@ -41,6 +41,7 @@ public class AlgoritmosBusqueda {
         this.tiempo++;
         origen.setTiempo(tiempo); 
         origen.nodoVisitado();
+        observador.actualizar();
         
         System.out.println("Descubierto (d=" + origen.getTiempo() + "): " + origen.getNombre());
 
@@ -58,13 +59,7 @@ public class AlgoritmosBusqueda {
 
         origen.nodoCompleto(); 
         this.tiempo++; 
-        origen.setTiempo(this.tiempo); 
-        try {
-            Thread.sleep(500l);
-        } catch (InterruptedException ex) {
-            System.out.println("EASTER EGG");
-        }
-        
+        origen.setTiempo(this.tiempo);
         observador.actualizar();
     }
 
