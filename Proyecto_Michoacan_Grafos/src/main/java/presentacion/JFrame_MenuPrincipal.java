@@ -218,7 +218,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_VisualizarGrafoActionPerformed
 
     private void BotonMenu_RutaCortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_RutaCortaActionPerformed
-        // TODO add your handling code here:
+        new JFrame_RutaMasCorta().setVisible(true);
     }//GEN-LAST:event_BotonMenu_RutaCortaActionPerformed
 
     private void BotonMenu_ComplejidadTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_ComplejidadTempActionPerformed
