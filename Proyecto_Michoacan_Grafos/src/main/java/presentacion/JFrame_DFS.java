@@ -46,7 +46,7 @@ public class JFrame_DFS extends JFrame_Padre implements Observador{
         setTitle("Seleccionar Origen - Grafo Michoacán");
         setLayout(new BorderLayout());
         aB = new AlgoritmosBusqueda();
-
+        aB.subscribirObservador(this);
         // 1. Inicializar Grafo y Mapa
         this.grafo = GrafoMorelia.construirGrafo();
         mapViewer = new JMapViewer();

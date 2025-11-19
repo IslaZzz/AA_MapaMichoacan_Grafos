@@ -38,7 +38,6 @@ public class JFrame_MenuAlgoritmosBusqueda extends JFrame_Padre {
         setPreferredSize(new java.awt.Dimension(970, 450));
 
         panelBotones.setBackground(new java.awt.Color(248, 242, 232));
-        panelBotones.setPreferredSize(new java.awt.Dimension(978, 560));
 
         BotonMenu_DFS.setBackground(new java.awt.Color(240, 228, 208));
         BotonMenu_DFS.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
@@ -141,7 +140,7 @@ public class JFrame_MenuAlgoritmosBusqueda extends JFrame_Padre {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 978, Short.MAX_VALUE)
+            .addGap(0, 1088, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
