@@ -50,61 +50,53 @@ public class JFrame_DFS extends JFrame_Padre implements Observador {
         setLayout(new BorderLayout());
         aB = new AlgoritmosBusqueda();
         aB.subscribirObservador(this);
-        // 1. Inicializar Grafo y Mapa
+      
         this.grafo = GrafoMorelia.construirGrafo();
         mapViewer = new JMapViewer();
         mapViewer.setZoomControlsVisible(true);
-        // Centrar mapa en Morelia aprox
+        
         mapViewer.setDisplayPosition(new Coordinate(19.7037, -101.1920), 8);
 
-        // 2. Panel Superior (Controles)
+        
         JPanel panelTop = new JPanel(new FlowLayout());
         cbOrigen = new JComboBox<>();
         btnContinuar = new JButton("CONFIRMAR ORIGEN");
 
-        // Estilo del botón
-        btnContinuar.setBackground(new Color(0, 102, 204)); // Un azul para diferenciar
+        
+        btnContinuar.setBackground(new Color(0, 102, 204)); 
         btnContinuar.setForeground(Color.WHITE);
 
         panelTop.add(new JLabel("Selecciona el Municipio de Origen:"));
         panelTop.add(cbOrigen);
         panelTop.add(btnContinuar);
 
-        // 3. Llenar el ComboBox con los vértices
+        
         for (Vertice v : grafo.getVertices()) {
             cbOrigen.addItem(v);
         }
 
-        // 4. Añadir componentes a la ventana
+        
         add(panelTop, BorderLayout.NORTH);
         add(mapViewer, BorderLayout.CENTER);
 
-        // Dibujar el grafo base inicial
+        
         dibujarGrafoEstadoActual();
-
-        // 5. Eventos
-        // Evento: Al cambiar la selección del combo, resaltar en el mapa
+        
         cbOrigen.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 resaltarVerticeSeleccionado((Vertice) cbOrigen.getSelectedItem());
             }
         });
-
-        // Evento: Botón Continuar
+        
         btnContinuar.addActionListener(e -> confirmarSeleccion());
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // Resaltar el primero por defecto al abrir
+        
         if (cbOrigen.getItemCount() > 0) {
             resaltarVerticeSeleccionado((Vertice) cbOrigen.getItemAt(0));
         }
     }
 
-    /**
-     * Acción al presionar el botón. Aquí es donde conectarías con la siguiente
-     * ventana (ej. BFS/DFS).
-     */
     private void confirmarSeleccion() {
         Vertice origen = (Vertice) cbOrigen.getSelectedItem();
 
@@ -120,9 +112,6 @@ public class JFrame_DFS extends JFrame_Padre implements Observador {
         }
     }
 
-    /**
-     * Dibuja todo el grafo en rojo (estado normal).
-     */
     private void dibujarGrafoEstadoActual() {
         mapViewer.removeAllMapMarkers();
         mapViewer.removeAllMapPolygons();

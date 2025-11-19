@@ -42,8 +42,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
         BotonMenu_RutaCorta = new javax.swing.JButton();
         BotonMenu_ComplejidadTemp = new javax.swing.JButton();
         BotonMenu_Salir = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        BotonMenu_TablaDatos = new javax.swing.JButton();
 
         panelFondo.setBackground(new java.awt.Color(235, 233, 227));
         panelFondo.setLayout(new java.awt.BorderLayout());
@@ -150,6 +149,17 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
             }
         });
 
+        BotonMenu_TablaDatos.setBackground(new java.awt.Color(240, 228, 208));
+        BotonMenu_TablaDatos.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
+        BotonMenu_TablaDatos.setForeground(new java.awt.Color(51, 51, 0));
+        BotonMenu_TablaDatos.setText("Tabla de Datos");
+        BotonMenu_TablaDatos.setBorderPainted(false);
+        BotonMenu_TablaDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonMenu_TablaDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
@@ -164,14 +174,15 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
                     .addGroup(panelBotonesLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BotonMenu_RutaCorta, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelBotonesLayout.createSequentialGroup()
                                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BotonMenu_Recorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BotonMenu_AEM, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(BotonMenu_AEM, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(43, 43, 43)
                                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BotonMenu_TablaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BotonMenu_ComplejidadTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(87, Short.MAX_VALUE))
@@ -184,7 +195,9 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonMenu_VisualizarGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonMenu_TablaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotonMenu_Recorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,7 +208,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
                     .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(BotonMenu_RutaCorta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         panelFondo.add(panelBotones, java.awt.BorderLayout.CENTER);
@@ -234,6 +247,12 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
         System.exit(0);
     }//GEN-LAST:event_BotonMenu_SalirActionPerformed
 
+    private void BotonMenu_TablaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_TablaDatosActionPerformed
+        // TODO add your handling code here:
+        new JFrame_TablaDatos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BotonMenu_TablaDatosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +263,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     private javax.swing.JButton BotonMenu_Recorridos;
     private javax.swing.JButton BotonMenu_RutaCorta;
     private javax.swing.JButton BotonMenu_Salir;
+    private javax.swing.JButton BotonMenu_TablaDatos;
     private javax.swing.JButton BotonMenu_VisualizarGrafo;
     private javax.swing.JPanel headerMenu;
     private javax.swing.JLabel jLabel1;
