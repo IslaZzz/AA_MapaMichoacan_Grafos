@@ -14,7 +14,7 @@
         <repository>
             <id>josm-public</id>
             <name>JOSM Public Repository</name>
-            <url>https://josm.openstreetmap.de/nexus/content/repositories/releases/</url>
+            <url>https://josm.openstreetmap.de/repository/releases/</url>
         </repository>
     </repositories>
     
