@@ -208,7 +208,7 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
                     .addComponent(BotonMenu_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(BotonMenu_RutaCorta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         panelFondo.add(panelBotones, java.awt.BorderLayout.CENTER);
@@ -240,7 +240,8 @@ public class JFrame_MenuPrincipal extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_RutaCortaActionPerformed
 
     private void BotonMenu_ComplejidadTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_ComplejidadTempActionPerformed
-        // TODO add your handling code here:
+        new JFrame_OpcionesTimeComplexity().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonMenu_ComplejidadTempActionPerformed
 
     private void BotonMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_SalirActionPerformed
