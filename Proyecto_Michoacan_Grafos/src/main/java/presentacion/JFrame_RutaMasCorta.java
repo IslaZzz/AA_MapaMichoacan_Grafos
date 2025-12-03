@@ -5,6 +5,7 @@
 package presentacion;
 
 import Algoritmos.AlgoritmosBusqueda;
+import Algoritmos.Observador;
 import grafos.Arista;
 import grafos.Grafo;
 import grafos.GrafoMorelia;
@@ -16,13 +17,13 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
@@ -34,31 +35,36 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
  *
  * @author Gyzmbin
  */
-public class JFrame_RutaMasCorta extends JFrame_Padre {
+public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
     private final JComboBox<Vertice> cbOrigen;
     private final JLabel lblDistancia;
+    private final AlgoritmosBusqueda algoritmos;
 
     public JFrame_RutaMasCorta() {
         super();
-        setTitle("Calculadora de Rutas (Dijkstra) - Grafo Michoacan");
+        setTitle("Dijkstra Animado - Arbol de Rutas");
         setLayout(new BorderLayout());
 
         this.grafo = GrafoMorelia.construirGrafo();
+
+        this.algoritmos = new AlgoritmosBusqueda();
+        this.algoritmos.subscribirObservador(this);
+
         mapViewer = new JMapViewer();
         mapViewer.setZoomControlsVisible(true);
         mapViewer.setDisplayPosition(new Coordinate(19.7037, -101.1920), 8);
 
         JPanel panelTop = new JPanel(new FlowLayout());
         cbOrigen = new JComboBox<>();
-        JButton btnCalcular = new JButton("CALCULAR RUTA");
+        JButton btnCalcular = new JButton("INICIAR ANIMACION DIJKSTRA");
 
         btnCalcular.setBackground(new Color(0, 102, 102));
         btnCalcular.setForeground(Color.WHITE);
 
-        panelTop.add(new JLabel("Origen:"));
+        panelTop.add(new JLabel("Selecciona Origen:"));
         panelTop.add(cbOrigen);
         panelTop.add(btnCalcular);
 
@@ -67,7 +73,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre {
         }
 
         JPanel panelBottom = new JPanel(new FlowLayout());
-        lblDistancia = new JLabel("Selecciona puntos y calcula la ruta.");
+        lblDistancia = new JLabel("El algoritmo mostrara como se encuentran las rutas mas cortas a TODOS los municipios.");
         lblDistancia.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 14));
         panelBottom.add(lblDistancia);
 
@@ -75,32 +81,28 @@ public class JFrame_RutaMasCorta extends JFrame_Padre {
         add(mapViewer, BorderLayout.CENTER);
         add(panelBottom, BorderLayout.SOUTH);
 
-        dibujarGrafoCompleto();
+        dibujarGrafoBase();
 
-        btnCalcular.addActionListener(e -> ejecutarDijkstra());
+        btnCalcular.addActionListener(e -> ejecutarDijkstraAnimado());
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    private void ejecutarDijkstra() {
+    private void ejecutarDijkstraAnimado() {
         Vertice origen = (Vertice) cbOrigen.getSelectedItem();
-
         if (origen == null) {
             return;
         }
 
-        AlgoritmosBusqueda algoritmos = new AlgoritmosBusqueda();
+        lblDistancia.setText("Ejecutando Dijkstra desde: " + origen.getNombre() + "...");
 
-        Map<String, Object> resultados = algoritmos.dijkstra(grafo, origen);
-
-        Map<Vertice, Vertice> predecesores = (Map<Vertice, Vertice>) resultados.get("predecesores");
-
-        lblDistancia.setText("Mostrando rutas mas cortas desde: " + origen.getNombre());
-
-        resaltarArbolDeRutas(predecesores, origen);
+        new Thread(() -> {
+            algoritmos.dijkstra(grafo, origen);
+            SwingUtilities.invokeLater(() -> lblDistancia.setText("¡Algoritmo Finalizado! Rutas completas."));
+        }).start();
     }
 
-    private void dibujarGrafoCompleto() {
+    private void dibujarGrafoBase() {
         mapViewer.removeAllMapMarkers();
         mapViewer.removeAllMapPolygons();
 
@@ -109,7 +111,9 @@ public class JFrame_RutaMasCorta extends JFrame_Padre {
         Set<String> dibujados = new HashSet<>();
 
         for (Vertice v : grafo.getVertices()) {
-            markers.add(new MapMarkerDot(v.getNombre(), v.getCoordenada()));
+            MapMarkerDot marker = new MapMarkerDot(v.getNombre(), v.getCoordenada());
+            marker.setBackColor(Color.GRAY);
+            markers.add(marker);
 
             for (Arista a : grafo.getVecinos(v)) {
                 Vertice u = a.getDestino();
@@ -128,44 +132,65 @@ public class JFrame_RutaMasCorta extends JFrame_Padre {
         mapViewer.setMapPolygonList(lines);
     }
 
-    private void resaltarArbolDeRutas(Map<Vertice, Vertice> predecesores, Vertice origenSeleccionado) {
-        dibujarGrafoCompleto();
+    @Override
+    public void actualizar() {
+        SwingUtilities.invokeLater(() -> {
+            resaltarEstadoActual();
+            mapViewer.repaint();
+        });
+    }
 
-        List<MapPolygon> poligonos = new ArrayList<>(mapViewer.getMapPolygonList());
-        List<MapMarker> marcadores = new ArrayList<>(mapViewer.getMapMarkerList());
+    private void resaltarEstadoActual() {
+        List<MapMarker> markers = new ArrayList<>();
+        List<MapPolygon> lines = new ArrayList<>();
+        Set<String> dibujados = new HashSet<>();
 
-        for (Map.Entry<Vertice, Vertice> entry : predecesores.entrySet()) {
-            Vertice destino = entry.getKey();
-            Vertice padre = entry.getValue();
+        for (Vertice v : grafo.getVertices()) {
+            for (Arista a : grafo.getVecinos(v)) {
+                Vertice u = a.getDestino();
+                String key = v.getNombre() + "-" + u.getNombre();
+                if (!dibujados.contains(key)) {
+                    MapPolygonImpl linea = new MapPolygonImpl(v.getCoordenada(), u.getCoordenada(), v.getCoordenada());
+                    linea.setColor(Color.LIGHT_GRAY);
+                    lines.add(linea);
+                    dibujados.add(key);
+                    dibujados.add(u.getNombre() + "-" + v.getNombre());
+                }
+            }
+        }
 
-            if (padre != null) {
+        for (Vertice v : grafo.getVertices()) {
+
+            if (v.getAntecesor() != null) {
                 MapPolygonImpl lineaRuta = new MapPolygonImpl(
-                        padre.getCoordenada(),
-                        destino.getCoordenada(),
-                        padre.getCoordenada()
+                        v.getAntecesor().getCoordenada(),
+                        v.getCoordenada(),
+                        v.getAntecesor().getCoordenada()
                 );
-
                 lineaRuta.setColor(Color.GREEN);
                 lineaRuta.setStroke(new BasicStroke(4));
-                poligonos.add(lineaRuta);
+                lines.add(lineaRuta);
             }
+
+            Color colorNodo = Color.GRAY;
+
+            if (v.getColor() == Color.BLACK) {
+                colorNodo = Color.BLUE;
+            } else if (v.getAntecesor() != null) {
+                colorNodo = Color.ORANGE;
+            }
+
+            if (v.equals(cbOrigen.getSelectedItem())) {
+                colorNodo = Color.RED;
+            }
+
+            MapMarkerDot dot = new MapMarkerDot(v.getNombre(), v.getCoordenada());
+            dot.setBackColor(colorNodo);
+            markers.add(dot);
         }
 
-        mapViewer.removeAllMapMarkers();
-        for (Vertice v : grafo.getVertices()) {
-            MapMarkerDot dot;
-            if (v.equals(origenSeleccionado)) {
-                dot = new MapMarkerDot(Color.BLUE, v.getCoordenada().getLat(), v.getCoordenada().getLon());
-                dot.setBackColor(Color.BLUE);
-            } else {
-                dot = new MapMarkerDot(Color.RED, v.getCoordenada().getLat(), v.getCoordenada().getLon());
-            }
-            marcadores.add(dot);
-        }
-
-        mapViewer.setMapMarkerList(marcadores);
-        mapViewer.setMapPolygonList(poligonos);
-        mapViewer.repaint();
+        mapViewer.setMapMarkerList(markers);
+        mapViewer.setMapPolygonList(lines);
     }
 
     /**

@@ -77,23 +77,26 @@ public class AlgoritmosBusqueda {
         for (Vertice v : grafo.getVertices()) {
             distancias.put(v, Double.POSITIVE_INFINITY);
             predecesores.put(v, null);
+            v.setAntecesor(null);
         }
+
         distancias.put(fuente, 0.0);
 
         Set<Vertice> S = new HashSet<>();
-
         PriorityQueue<Vertice> Q = new PriorityQueue<>(Comparator.comparingDouble(distancias::get));
         Q.addAll(grafo.getVertices());
 
         while (!Q.isEmpty()) {
-
             Vertice u = Q.poll();
-
             S.add(u);
+
+            u.nodoCompleto();
+            notificarObservador();
+            pausar(200);
 
             for (Arista arista : grafo.getVecinos(u)) {
                 Vertice v = arista.getDestino();
-                double peso = arista.getPeso(); // w(u, v)
+                double peso = arista.getPeso();
 
                 relax(u, v, peso, distancias, predecesores, Q);
             }
@@ -103,19 +106,37 @@ public class AlgoritmosBusqueda {
         resultado.put("distancias", distancias);
         resultado.put("predecesores", predecesores);
         return resultado;
-
     }
 
     private void relax(Vertice u, Vertice v, double peso, Map<Vertice, Double> distancias, Map<Vertice, Vertice> predecesores, PriorityQueue<Vertice> Q) {
         double nuevaDist = distancias.get(u) + peso;
+
         if (distancias.get(v) > nuevaDist) {
-
             distancias.put(v, nuevaDist);
-
             predecesores.put(v, u);
+
+            v.setAntecesor(u);
+            v.nodoVisitado();
 
             Q.remove(v);
             Q.add(v);
+
+            notificarObservador();
+            pausar(50);
+        }
+    }
+
+    private void pausar(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ex) {
+            System.out.println("Animación interrumpida");
+        }
+    }
+
+    private void notificarObservador() {
+        if (observador != null) {
+            observador.actualizar();
         }
     }
 
