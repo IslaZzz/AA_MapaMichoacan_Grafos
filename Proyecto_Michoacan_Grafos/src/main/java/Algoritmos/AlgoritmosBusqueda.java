@@ -99,7 +99,6 @@ public class AlgoritmosBusqueda {
             }
         }
 
-        // Devolvemos ambos mapas para que el usuario pueda usarlos
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("distancias", distancias);
         resultado.put("predecesores", predecesores);
