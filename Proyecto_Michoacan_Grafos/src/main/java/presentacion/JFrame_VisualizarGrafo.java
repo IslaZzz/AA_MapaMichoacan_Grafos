@@ -10,11 +10,13 @@ import grafos.GrafoMorelia;
 import grafos.Vertice;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
@@ -29,14 +31,20 @@ public class JFrame_VisualizarGrafo extends JFrame_Padre {
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
+    private final BotonRegresar btnRegresar;
+    JPanel panelTop = new JPanel(new FlowLayout());
 
     public JFrame_VisualizarGrafo() {
         super();
+        initComponents();
         setTitle("Visualización del Grafo de Michoacán");
-
+        setSize(978, 588); 
         setLayout(new BorderLayout());
 
         this.grafo = GrafoMorelia.construirGrafo();
+        btnRegresar = new BotonRegresar("Exit", this);
+        this.add(panelTop, BorderLayout.NORTH);
+        panelTop.add(btnRegresar);
 
         mapViewer = new JMapViewer();
         mapViewer.setZoomControlsVisible(true);
@@ -104,19 +112,6 @@ public class JFrame_VisualizarGrafo extends JFrame_Padre {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

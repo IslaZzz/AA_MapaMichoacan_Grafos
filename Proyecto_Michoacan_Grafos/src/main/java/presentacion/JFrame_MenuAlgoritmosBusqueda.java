@@ -167,7 +167,8 @@ public class JFrame_MenuAlgoritmosBusqueda extends JFrame_Padre {
     }//GEN-LAST:event_BotonMenu_DFSActionPerformed
 
     private void BotonMenu_BFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_BFSActionPerformed
-
+        new JFrame_BFS().setVisible(true);
+        dispose();
     }//GEN-LAST:event_BotonMenu_BFSActionPerformed
 
     private void BotonMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMenu_SalirActionPerformed

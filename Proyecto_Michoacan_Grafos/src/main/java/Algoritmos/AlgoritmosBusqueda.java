@@ -13,9 +13,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -26,7 +28,8 @@ public class AlgoritmosBusqueda {
 
     private Observador observador;
     private int tiempo = 0;
-
+    private Vertice verticieInicioBFS;
+    
     public void DFS(Grafo grafo) {
 
         for (Vertice u : grafo.getVertices()) {
@@ -158,5 +161,44 @@ public class AlgoritmosBusqueda {
 
     public void subscribirObservador(Observador o) {
         this.observador = o;
+    }
+    
+    public void BFS(Grafo grafo, Vertice origen) {
+        
+        this.verticieInicioBFS = origen;
+        
+        for (Vertice u : grafo.getVertices()) {
+            if (u.getColor() == Color.WHITE) {
+                u.setAntecesor(null);
+            }
+        }
+        traverse(grafo);  
+    }
+    
+    private void traverse(Grafo grafo){
+        Queue<Vertice> q = new LinkedList<>();
+        verticieInicioBFS.nodoVisitado();
+        q.add(verticieInicioBFS);
+        
+        while(!q.isEmpty()){
+            
+            Vertice verticeActual = q.poll();
+            System.out.println(verticeActual);
+            
+            for (Arista arista : grafo.getVecinos(verticeActual)) {
+                Vertice v = arista.getDestino();
+                
+                if(v.getColor()==Color.WHITE){
+                    v.nodoVisitado();
+                    v.setAntecesor(verticeActual);
+                    q.add(v);
+                    
+                    notificarObservador();
+                    pausar(100);
+                }
+            }
+            verticeActual.nodoCompleto();
+        }
+        
     }
 }

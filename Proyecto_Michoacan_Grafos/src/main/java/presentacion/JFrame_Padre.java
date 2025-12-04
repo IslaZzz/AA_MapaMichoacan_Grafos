@@ -20,7 +20,6 @@ public class JFrame_Padre extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
     }
 
     /**

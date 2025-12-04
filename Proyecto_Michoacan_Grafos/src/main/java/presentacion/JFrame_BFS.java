@@ -32,18 +32,18 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 /**
  *
- * @author Ramon Valencia
+ * @author abrilislas
  */
-public class JFrame_DFS extends JFrame_Padre implements Observador {
+public class JFrame_BFS extends JFrame_Padre implements Observador {
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
     private final JComboBox<Vertice> cbOrigen;
     private final JButton btnContinuar;
-    private final AlgoritmosBusqueda aB;
     private final BotonRegresar btnRegresar;
+    private final AlgoritmosBusqueda aB;
 
-    public JFrame_DFS() {
+    public JFrame_BFS() {
         super();
         setTitle("Seleccionar Origen - Grafo Michoacán");
         setLayout(new BorderLayout());
@@ -105,7 +105,7 @@ public class JFrame_DFS extends JFrame_Padre implements Observador {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + origen.getNombre()
                     + "\nListo para iniciar algoritmo.");
             new Thread(() -> {
-                aB.DFSVisit(grafo, origen);
+                aB.BFS(grafo, origen);
             }).start();
 
         } else {
@@ -186,8 +186,6 @@ public class JFrame_DFS extends JFrame_Padre implements Observador {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

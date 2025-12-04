@@ -32,6 +32,7 @@ public class JFrame_MST extends JFrame_Padre {
     private final Grafo grafo;
     private final JButton btnCalcular;
     private final AlgoritmosMST algoritmoMST;
+    private final BotonRegresar btnRegresar;
 
     public JFrame_MST() {
         super();
@@ -48,9 +49,11 @@ public class JFrame_MST extends JFrame_Padre {
         btnCalcular = new JButton("Calcular MST (Kruskal)");
         btnCalcular.setForeground(Color.WHITE);
         btnCalcular.setBackground(new Color(0, 102, 204)); 
+        btnRegresar = new BotonRegresar("Exit", this);
 
         JPanel top = new JPanel();
         top.add(btnCalcular);
+        top.add(btnRegresar);
 
         add(top, BorderLayout.NORTH);
         add(mapViewer, BorderLayout.CENTER);

@@ -31,6 +31,7 @@ public class JFrame_TablaDatos extends JFrame_Padre {
     
     private final Grafo grafo;
     private JTabbedPane tabbedPane;
+    private BotonRegresar btnRegresar;
     
     public JFrame_TablaDatos() {
         super();
@@ -44,6 +45,9 @@ public class JFrame_TablaDatos extends JFrame_Padre {
         JPanel panelHeader = new JPanel(new BorderLayout());
         panelHeader.setBackground(new Color(33, 33, 33));
         panelHeader.setBorder(new EmptyBorder(15, 15, 15, 15));
+        
+        btnRegresar = new BotonRegresar("Exit", this);
+        panelHeader.add(btnRegresar);
 
         int totalV = grafo.getVertices().size();
         int totalA = contarAristasTotales();

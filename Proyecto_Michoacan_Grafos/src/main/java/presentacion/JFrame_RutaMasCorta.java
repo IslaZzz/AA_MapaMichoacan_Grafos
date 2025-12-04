@@ -42,6 +42,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
     private final JComboBox<Vertice> cbOrigen;
     private final JLabel lblDistancia;
     private final AlgoritmosBusqueda algoritmos;
+    private final BotonRegresar btnRegresar;
 
     public JFrame_RutaMasCorta() {
         super();
@@ -60,6 +61,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
         JPanel panelTop = new JPanel(new FlowLayout());
         cbOrigen = new JComboBox<>();
         JButton btnCalcular = new JButton("INICIAR ANIMACION DIJKSTRA");
+        btnRegresar = new BotonRegresar("Exit", this);
 
         btnCalcular.setBackground(new Color(0, 102, 102));
         btnCalcular.setForeground(Color.WHITE);
@@ -67,6 +69,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
         panelTop.add(new JLabel("Selecciona Origen:"));
         panelTop.add(cbOrigen);
         panelTop.add(btnCalcular);
+        panelTop.add(btnRegresar);
 
         for (Vertice v : grafo.getVertices()) {
             cbOrigen.addItem(v);
