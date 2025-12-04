@@ -37,6 +37,9 @@ public class Vertice {
         return colorNodo;
     }
     
+    public void setColor(Color color){
+        this.colorNodo = color;
+    } 
     public String getNombre() {
         return nombre;
     }
