@@ -4,6 +4,8 @@
  */
 package grafos;
 
+import java.awt.Color;
+
 /**
  *
  * @author abrilislas
@@ -17,11 +19,13 @@ public class AristaCompleta {
     private Vertice origen;
     private Vertice destino;
     private double peso;
+    private Color color;
 
     public AristaCompleta(Vertice o, Vertice d, double p) {
         this.origen = o;
         this.destino = d;
         this.peso = p;
+        this.color = Color.BLUE;
     }
 
     public Vertice getOrigen() {
@@ -46,6 +50,14 @@ public class AristaCompleta {
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+    
+    public Color getColor() {
+        return color;
+    }
+    
+    public void setColor(Color color) {
+        this.color = color;
     }
     
 }
