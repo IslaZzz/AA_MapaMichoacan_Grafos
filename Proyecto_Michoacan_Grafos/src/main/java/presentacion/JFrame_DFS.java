@@ -105,7 +105,7 @@ public class JFrame_DFS extends JFrame_Padre implements Observador {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + origen.getNombre()
                     + "\nListo para iniciar algoritmo.");
             new Thread(() -> {
-                aB.DFSVisit(grafo, origen);
+                aB.DFS(grafo, origen);
             }).start();
 
         } else {
