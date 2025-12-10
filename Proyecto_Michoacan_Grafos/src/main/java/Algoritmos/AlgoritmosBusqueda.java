@@ -76,7 +76,8 @@ public class AlgoritmosBusqueda {
 
     }
 
-    public Map<String, Object> dijkstra(Grafo grafo, Vertice fuente) {
+    
+    public Map<String, Object> dijkstra(Grafo grafo, Vertice fuente, Vertice destino) {
         Map<Vertice, Double> distancias = new HashMap<>();
         Map<Vertice, Vertice> predecesores = new HashMap<>();
 
@@ -99,22 +100,28 @@ public class AlgoritmosBusqueda {
             u.nodoCompleto();
             notificarObservador();
             pausar(200);
+            
+            if (u.equals(destino)) {
+                break;
+        }
 
             for (Arista arista : grafo.getVecinos(u)) {
                 Vertice v = arista.getDestino();
                 double peso = arista.getPeso();
 
-                relax(u, v, peso, distancias, predecesores, Q);
+                relax(u, v, peso, distancias, predecesores, Q, destino);
             }
         }
+        List<Vertice> ruta = getRutaCorta(predecesores, destino);
 
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("distancias", distancias);
         resultado.put("predecesores", predecesores);
+        resultado.put("ruta", ruta);
         return resultado;
     }
 
-    private void relax(Vertice u, Vertice v, double peso, Map<Vertice, Double> distancias, Map<Vertice, Vertice> predecesores, PriorityQueue<Vertice> Q) {
+    private void relax(Vertice u, Vertice v, double peso, Map<Vertice, Double> distancias, Map<Vertice, Vertice> predecesores, PriorityQueue<Vertice> Q, Vertice destino) {
         double nuevaDist = distancias.get(u) + peso;
 
         if (distancias.get(v) > nuevaDist) {
@@ -123,13 +130,18 @@ public class AlgoritmosBusqueda {
 
             v.setAntecesor(u);
             v.nodoVisitado();
-
+            
+            if(v==destino){
+                while(destino.getAntecesor()!=u){
+                    notificarObservador();
+                    pausar(50);
+                
+                }
+            }
             Q.remove(v);
             Q.add(v);
-
-            notificarObservador();
-            pausar(50);
         }
+        
     }
 
     private void pausar(long millis) {
