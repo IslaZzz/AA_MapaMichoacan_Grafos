@@ -30,12 +30,15 @@ public class AlgoritmosBusqueda {
     private int tiempo = 0;
     private Vertice verticieInicioBFS;
     
-    public void DFS(Grafo grafo) {
-
+    public void DFS(Grafo grafo, Vertice origen) {
+        for (Vertice u : grafo.getVertices()) {
+            u.setColor(Color.WHITE);
+        }
+        tiempo = 0;
         for (Vertice u : grafo.getVertices()) {
             if (u.getColor() == Color.WHITE) {
 
-                DFSVisit(grafo, u);
+                DFSVisit(grafo, origen);
             }
         }
     }
@@ -66,7 +69,7 @@ public class AlgoritmosBusqueda {
         origen.setTiempo(this.tiempo);
 
         try {
-            Thread.sleep(500l);
+            Thread.sleep(300l);
         } catch (InterruptedException ex) {
             System.out.println("EASTER EGG");
         }

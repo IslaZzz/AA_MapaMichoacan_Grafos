@@ -1,6 +1,7 @@
 package presentacion;
 
 import Algoritmos.AlgoritmosMST;
+import Algoritmos.Observador;
 import grafos.Grafo;
 import grafos.GrafoMorelia;
 import grafos.Vertice;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -23,10 +25,11 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 /**
- * JFrame para mostrar Kruskal 
+ * JFrame para mostrar Kruskal
+ *
  * @author abrilislas
  */
-public class JFrame_MST extends JFrame_Padre {
+public class JFrame_MST extends JFrame_Padre implements Observador {
 
     private final JMapViewer mapViewer;
     private final Grafo grafo;
@@ -40,15 +43,16 @@ public class JFrame_MST extends JFrame_Padre {
         setLayout(new BorderLayout());
 
         grafo = GrafoMorelia.construirGrafo();
-        algoritmoMST = new AlgoritmosMST() {};
-
+        algoritmoMST = new AlgoritmosMST() {
+        };
+        algoritmoMST.setObservador(this);
         mapViewer = new JMapViewer();
         mapViewer.setZoomControlsVisible(true);
         mapViewer.setDisplayPosition(new Coordinate(19.7037, -101.1920), 8);
 
         btnCalcular = new JButton("Calcular MST (Kruskal)");
         btnCalcular.setForeground(Color.WHITE);
-        btnCalcular.setBackground(new Color(0, 102, 204)); 
+        btnCalcular.setBackground(new Color(0, 102, 204));
         btnRegresar = new BotonRegresar("Exit", this);
 
         JPanel top = new JPanel();
@@ -66,14 +70,11 @@ public class JFrame_MST extends JFrame_Padre {
     }
 
     private void ejecutarKruskal() {
-        algoritmoMST.kruskal(grafo);
+        new Thread(() -> {
+            algoritmoMST.kruskal(grafo);
+        }).start();
 
-        JOptionPane.showMessageDialog(this,
-                "Peso total del MST: " + algoritmoMST.getPesoTotal());
-
-        dibujarMST(algoritmoMST.getMST());
     }
-
 
     private void dibujarGrafoOriginal() {
         mapViewer.removeAllMapMarkers();
@@ -120,7 +121,7 @@ public class JFrame_MST extends JFrame_Padre {
             MapMarkerDot mark = new MapMarkerDot(Color.BLUE,
                     v.getCoordenada().getLat(),
                     v.getCoordenada().getLon());
-            mark.setBackColor(Color.BLUE);
+            mark.setBackColor(v.getColor());
             markers.add(mark);
         }
 
@@ -134,7 +135,7 @@ public class JFrame_MST extends JFrame_Padre {
                         u.getCoordenada(),
                         v.getCoordenada()
                 );
-                line.setColor(Color.GREEN);
+                line.setColor(a.getColor());
                 lines.add(line);
             });
         }
@@ -142,6 +143,17 @@ public class JFrame_MST extends JFrame_Padre {
         mapViewer.setMapMarkerList(markers);
         mapViewer.setMapPolygonList(lines);
         mapViewer.repaint();
+    }
+
+    @Override
+    public void actualizar() {
+        SwingUtilities.invokeLater(() -> {
+            dibujarMST(algoritmoMST.getMST());
+            if (algoritmoMST.estadoProceso()) {
+                JOptionPane.showMessageDialog(this,
+                        "Peso total del MST: " + algoritmoMST.getPesoTotal());
+            }
+        });
     }
 
 }
