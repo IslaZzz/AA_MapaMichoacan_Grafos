@@ -40,6 +40,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
     private final JMapViewer mapViewer;
     private final Grafo grafo;
     private final JComboBox<Vertice> cbOrigen;
+    private final JComboBox<Vertice> cbDestino;
     private final JLabel lblDistancia;
     private final AlgoritmosBusqueda algoritmos;
     private final BotonRegresar btnRegresar;
@@ -60,6 +61,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
 
         JPanel panelTop = new JPanel(new FlowLayout());
         cbOrigen = new JComboBox<>();
+        cbDestino = new JComboBox<>();
         JButton btnCalcular = new JButton("INICIAR ANIMACION DIJKSTRA");
         btnRegresar = new BotonRegresar("Exit", this);
 
@@ -68,11 +70,13 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
 
         panelTop.add(new JLabel("Selecciona Origen:"));
         panelTop.add(cbOrigen);
+        panelTop.add(cbDestino);
         panelTop.add(btnCalcular);
         panelTop.add(btnRegresar);
 
         for (Vertice v : grafo.getVertices()) {
             cbOrigen.addItem(v);
+            cbDestino.addItem(v);
         }
 
         JPanel panelBottom = new JPanel(new FlowLayout());
@@ -96,14 +100,46 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
         if (origen == null) {
             return;
         }
+        Vertice destino = (Vertice) cbDestino.getSelectedItem();
+        if (origen == null) {
+            return;
+        }
 
         lblDistancia.setText("Ejecutando Dijkstra desde: " + origen.getNombre() + "...");
 
         new Thread(() -> {
-            algoritmos.dijkstra(grafo, origen);
-            SwingUtilities.invokeLater(() -> lblDistancia.setText("¡Algoritmo Finalizado! Rutas completas."));
+             
+            List<Vertice> ruta = (List<Vertice>) algoritmos.dijkstra(grafo, origen, destino).get("ruta");
+            SwingUtilities.invokeLater(() -> lblDistancia.setText(
+                    "¡Algoritmo Finalizado!  Distancia total: " + calcularPesoRuta(grafo, ruta)));
+            dibujarRutaFinal(ruta);
         }).start();
     }
+    
+    private void dibujarRutaFinal(List<Vertice> ruta) {
+        if (ruta == null || ruta.size() < 2) return;
+
+        mapViewer.removeAllMapPolygons();
+
+        List<MapPolygon> lines = new ArrayList<>();
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Vertice a = ruta.get(i);
+            Vertice b = ruta.get(i + 1);
+
+            MapPolygonImpl linea = new MapPolygonImpl(
+                a.getCoordenada(),
+                b.getCoordenada(),
+                a.getCoordenada()
+            );
+            linea.setColor(Color.PINK);
+            linea.setStroke(new BasicStroke(6)); 
+            lines.add(linea);
+    }
+
+    mapViewer.setMapPolygonList(lines);
+    mapViewer.repaint();
+}
+
 
     private void dibujarGrafoBase() {
         mapViewer.removeAllMapMarkers();
@@ -183,7 +219,7 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
                 colorNodo = Color.ORANGE;
             }
 
-            if (v.equals(cbOrigen.getSelectedItem())) {
+            if (v.equals(cbOrigen.getSelectedItem()) || v.equals(cbDestino.getSelectedItem())) {
                 colorNodo = Color.RED;
             }
 
@@ -195,6 +231,28 @@ public class JFrame_RutaMasCorta extends JFrame_Padre implements Observador {
         mapViewer.setMapMarkerList(markers);
         mapViewer.setMapPolygonList(lines);
     }
+    
+    public static double calcularPesoRuta(Grafo grafo, List<Vertice> ruta) {
+        if (ruta == null || ruta.size() < 2) {
+            return 0;
+        }
+
+        double pesoTotal = 0;
+
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Vertice actual = ruta.get(i);
+            Vertice siguiente = ruta.get(i + 1);
+
+            for (Arista arista : grafo.getVecinos(actual)) {
+                if (arista.getDestino().equals(siguiente)) {
+                    pesoTotal += arista.getPeso();
+                    break;
+                }
+            }
+        }
+
+        return pesoTotal;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
